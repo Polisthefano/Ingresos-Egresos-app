@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
+import { SnackBarComponent } from '../../components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthServiceService,private router:Router) { }
+  constructor(private SnackBar:SnackBarComponent,private authService:AuthServiceService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   {
     this.authService.login(formulario.email,formulario.pass).then(resp=>{
       alert('Logueado correctamente')
+      this.SnackBar.openSnackBar('logueado Correctamente');
       this.router.navigateByUrl('/')
     }).catch(err=>{
       alert('Usuario o password incorrecta'+err)
