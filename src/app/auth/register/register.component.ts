@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private authService:AuthServiceService,private router:Router) { }
+  constructor(private authService:AuthServiceService,private router:Router,public dialogService:DialogService) { }
   ngOnInit(): void {
   }
   
@@ -17,10 +18,10 @@ export class RegisterComponent implements OnInit {
 submit(formulario:any){
   
   this.authService.crearUsuario(formulario.nombre,formulario.email,formulario.pass).then(resp=>{
-    alert('Usuario creado correctamente') //en esa resp envia uid id unico de user
-    this.router.navigateByUrl('/')
+    this.dialogService.openDialog('Usuario Creado Correctamente',true) //en esa resp envia uid id unico de user
+    
   }).catch(err=>{
-    alert('Error al crear User '+err)
+    this.dialogService.openDialog(err,false)
   })
 }
 

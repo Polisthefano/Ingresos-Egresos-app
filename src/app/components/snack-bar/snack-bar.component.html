@@ -1,0 +1,11 @@
+<div class="container rounded">
+    <div class="row">
+        <div [ngClass]="{'text-danger': !data.value, 'text-success': data.value }" class="col-12 text-center">
+            <h4>{{data.msg}}</h4>
+        </div>
+    </div>
+    <div class="row text-center">
+        <i *ngIf="!data.value" class="fa-2x fas fa-times-circle text-danger"></i>
+        <i class="fa-2x fas fa-check-circle text-success" *ngIf="data.value"></i>
+    </div>
+</div>

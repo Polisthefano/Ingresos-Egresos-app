@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { SnackBarComponent } from '../../components/snack-bar/snack-bar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +12,19 @@ import { SnackBarComponent } from '../../components/snack-bar/snack-bar.componen
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private SnackBar:SnackBarComponent,private authService:AuthServiceService,private router:Router) { }
+  constructor(private dialogService:DialogService,private authService:AuthServiceService) { }
 
   ngOnInit(): void {
   }
   submit(formulario:any)
   {
     this.authService.login(formulario.email,formulario.pass).then(resp=>{
-      alert('Logueado correctamente')
-      this.SnackBar.openSnackBar('logueado Correctamente');
-      this.router.navigateByUrl('/')
+      this.dialogService.openDialog('Sesion iniciada correctamente',true)
+      
     }).catch(err=>{
-      alert('Usuario o password incorrecta'+err)
+      
+      this.dialogService.openDialog('Error al iniciar Sesion',false)
+
     })
   }
 

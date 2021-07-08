@@ -20,7 +20,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
+import { AngularMatModule } from './modules/angular-mat/angular-mat.module';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { MaterialModule } from './material/material.module';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-  
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +44,9 @@ import { MaterialModule } from './material/material.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    MaterialModule
+    AngularMatModule,
   ],
-  providers: [],
+  providers:[SnackBarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

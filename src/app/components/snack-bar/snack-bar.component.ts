@@ -1,25 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-snack-bar',
   templateUrl: './snack-bar.component.html',
-  styleUrls: ['./snack-bar.component.css']
+  styleUrls: ['./snack-bar.component.css'],
 })
+
 export class SnackBarComponent implements OnInit {
-  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private dialog:MatDialog,
+    public dialogRef: MatDialogRef<SnackBarComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {} 
 
   ngOnInit(): void {
   }
 
-  openSnackBar(msg:string) {
-    this._snackBar.open(msg,'Splash' ,{
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
-  }
+    }
+  
 
 
-}
+
