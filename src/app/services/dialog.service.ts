@@ -11,7 +11,6 @@ export class DialogService {
   constructor(private dialog:MatDialog,private router:Router) { }
 
   openDialog(msg:string,value:boolean){
-
   const dialogRef= this.dialog.open(SnackBarComponent,{
       width: '300px',
     data:{msg:msg,value:value}

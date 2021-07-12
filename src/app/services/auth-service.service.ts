@@ -5,13 +5,15 @@ import { SnackBarComponent } from '../components/snack-bar/snack-bar.component';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/usuario.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  constructor(private router:Router,private afa:AngularFireAuth) { }
+  constructor(private router:Router,private afa:AngularFireAuth,private firestore:AngularFirestore) { }
 
   initAuthListener(){
     this.afa.authState.subscribe(firebaseUser=>{
@@ -40,7 +42,6 @@ export class AuthServiceService {
       map(user=>{
       if(user)
       {
-       
         return true;
       }
       else{
@@ -50,5 +51,14 @@ export class AuthServiceService {
       }
     )
     )
+  }
+
+  insertUserDatabase(user:User)
+  {
+  return this.firestore.doc(`${user.uid}/usuario`).set({
+    nombre:user.nombre,
+    email:user.email,
+    uid:user.uid
+  })
   }
 }
