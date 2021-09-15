@@ -23,6 +23,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMatModule } from './modules/angular-mat/angular-mat.module';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +49,11 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     AngularFirestoreModule,
     BrowserAnimationsModule,
     AngularMatModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers:[SnackBarComponent],
   bootstrap: [AppComponent]

@@ -15,11 +15,11 @@ export function uiReducer(state=InitState,accion:FromUI.acciones):State
     case FromUI.ACTIVAR_LOADING:
          return {
              isLoading:true
-         }   
+         }
     case  FromUI.DESACTIVAR_LOADING:
         return {
             isLoading:false
-        }   
+        }
         default:
         return state
     }
