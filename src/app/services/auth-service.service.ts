@@ -11,13 +11,14 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { DesactivarLoadingAction, ActivarLoadingAction } from '../shared/ui.accions';
 import { SetUserAction } from '../auth/auth.actions';
+import { DashboardService } from './dashboard.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-
-  constructor(private router:Router,private afa:AngularFireAuth,private store:Store<AppState>,private firestore:AngularFirestore) { }
+  private usuario: User|null=null;
+  constructor(private dashboardService:DashboardService,private router:Router,private afa:AngularFireAuth,private store:Store<AppState>,private firestore:AngularFirestore) { }
 
   initAuthListener(){
     this.afa.authState.subscribe(firebaseUser=>{
@@ -27,6 +28,7 @@ export class AuthServiceService {
         this.firestore.doc(`${firebaseUser.uid}/usuario`).get().toPromise().then((user:any) => {
           let usuario: User = user.data()
           this.store.dispatch(new SetUserAction(usuario));
+          this.usuario=usuario
         })
 
       }
@@ -73,5 +75,10 @@ export class AuthServiceService {
     email:user.email,
     uid:user.uid
   })
+  }
+
+  getUser() {
+    return { ...this.usuario } //esto lo hacemos con spread para pasar una copia y no por referencia
+    //esto se hace para obtener el usuario actual, podria haberselo buscado en el redux y era lo mismo
   }
 }

@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit,OnDestroy {
   {
     this.store.dispatch(new ActivarLoadingAction())
     this.authService.login(formulario.email,formulario.pass).then(resp=>{
-      this.dialogService.openDialog('Sesion iniciada correctamente', true)
+      this.dialogService.openDialog('Sesion iniciada correctamente', true,true)
 
     this.store.dispatch(new DesactivarLoadingAction())
 
     }).catch(err=>{
 
-      this.dialogService.openDialog('Error al iniciar Sesion', false)
+      this.dialogService.openDialog('Error al iniciar Sesion', false,false)
       this.store.dispatch(new DesactivarLoadingAction())
 
     })
