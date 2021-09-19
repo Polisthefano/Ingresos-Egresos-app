@@ -2,7 +2,7 @@ import * as fromIngresoEgreso from './ingreso-egreso.actions'
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 export interface IngresoEgresoState{
-  items:IngresoEgreso[]
+  items:IngresoEgreso[]|null
 }
 const estadoInicial: IngresoEgresoState={
   items:[]
@@ -12,6 +12,10 @@ export function IngresoEgresoReducer(state = estadoInicial, action: fromIngresoE
     case fromIngresoEgreso.SET_ITEMS:
       return {
         items: [...action.items]
+      }
+    case fromIngresoEgreso.UNSET_ITEMS:
+      return {
+        items:[]
       }
     default:
       return state

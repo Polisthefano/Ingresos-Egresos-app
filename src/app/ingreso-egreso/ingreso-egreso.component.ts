@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { ActivarLoadingAction, DesactivarLoadingAction } from '../shared/ui.accions';
 import { SetIngresoEgreso} from './ingreso-egreso.actions';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-ingreso-egreso',
@@ -15,11 +16,12 @@ import { SetIngresoEgreso} from './ingreso-egreso.actions';
   styleUrls: ['./ingreso-egreso.component.css']
 })
 export class IngresoEgresoComponent implements OnInit,OnDestroy {
+  Subscription2: Subscription = new Subscription();
   loading: boolean = false
   Subscription: Subscription = new Subscription();
   forma: FormGroup
   tipo:TipoIngreso='ingreso'
-  constructor(private store:Store<AppState>,private ingresoEgresoService:IngresoEgresoService,private fb: FormBuilder,private dialogService:DialogService) {
+  constructor(public authService:AuthServiceService,private store:Store<AppState>,private ingresoEgresoService:IngresoEgresoService,private fb: FormBuilder,private dialogService:DialogService) {
     this.forma = new FormGroup({
       "descripcion": new FormControl('', [Validators.required]),
       'monto': new FormControl(0,[Validators.required,Validators.min(1)]) //recordar que este validator es para
@@ -27,13 +29,14 @@ export class IngresoEgresoComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
+    
     this.Subscription=this.store.select('ui').subscribe((resp:any) => {
     this.loading=resp.isLoading
   })
   }
   ngOnDestroy(): void {
     this.Subscription.unsubscribe();
-
+    this.Subscription2.unsubscribe()
   }
 
   saveForm() {
@@ -52,5 +55,6 @@ export class IngresoEgresoComponent implements OnInit,OnDestroy {
     ;
 
   }
+  
 
 }

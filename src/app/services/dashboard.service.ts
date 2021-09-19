@@ -4,6 +4,9 @@ import { AuthServiceService } from './auth-service.service';
 import { User } from '../models/usuario.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
+import { map } from 'rxjs/operators';
+import { SetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
+import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +14,5 @@ import { AppState } from '../app.reducer';
 export class DashboardService {
 
   constructor(private store:Store<AppState>,private firestore:AngularFirestore) { }
-
-  async initItemsUser() {
-    let user
-    await this.store.select('Auth').subscribe((user: any) => {
-       console.log(user)
-      user=user
-    })
-  console.log(user)
-    // this.firestore.collection(`${uid}/ingresosEgresos/items`).doc().valueChanges().subscribe(resp => {
-    //     console.log(resp)
-    //   })
-   }
-
-
-
+ 
 }

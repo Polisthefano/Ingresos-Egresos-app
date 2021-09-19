@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MatDialog } from '@angular/material/dialog';
-import { SnackBarComponent } from '../components/snack-bar/snack-bar.component';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/usuario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -12,11 +10,13 @@ import { AppState } from '../app.reducer';
 import { DesactivarLoadingAction, ActivarLoadingAction } from '../shared/ui.accions';
 import { SetUserAction } from '../auth/auth.actions';
 import { DashboardService } from './dashboard.service';
+import { SetIngresoEgreso, UnsetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
+  suscription:Subscription=new Subscription()
   private usuario: User|null=null;
   constructor(private dashboardService:DashboardService,private router:Router,private afa:AngularFireAuth,private store:Store<AppState>,private firestore:AngularFirestore) { }
 
@@ -25,9 +25,13 @@ export class AuthServiceService {
       console.log(firebaseUser) //con este metodo me suscribo a todos los datos del usuario logueado
       if (firebaseUser)
       {
+        console.log("aca dos veces")
         this.firestore.doc(`${firebaseUser.uid}/usuario`).get().toPromise().then((user:any) => {
           let usuario: User = user.data()
           this.store.dispatch(new SetUserAction(usuario));
+          this.suscription=this.firestore.collection(`${usuario.uid}/ingresosEgresos/items/`).valueChanges().subscribe((items:any[])=>{
+            this.store.dispatch(new SetIngresoEgreso(items))
+          })
           this.usuario=usuario
         })
 

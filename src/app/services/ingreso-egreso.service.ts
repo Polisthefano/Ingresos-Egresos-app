@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
 import { AuthServiceService } from './auth-service.service';
 
@@ -8,7 +10,7 @@ import { AuthServiceService } from './auth-service.service';
 })
 export class IngresoEgresoService {
 
-  constructor(private firestore:AngularFirestore,private authService:AuthServiceService) { }
+  constructor(private store:Store<AppState>,private firestore:AngularFirestore,private authService:AuthServiceService) { }
 
   insertIngresoEgreso(ingresoEgreso: IngresoEgreso)
   {
@@ -18,4 +20,15 @@ export class IngresoEgresoService {
     console.log(ingresoEgreso,{ ...ingresoEgreso }) //manejar asi el objecto, le saca la cabecera(osea lo que va antes de la llave) que es un string, manda solo los valores
     return this.firestore.doc(`${userActual.uid}/ingresosEgresos`).collection('items').add({ ...ingresoEgreso }) //mandamos asi, porque manda solo los valores de ese objeto y no la cabecera
   }
+
+   getAllItems(){
+    let userActual:any = this.authService.getUser();
+    //this.firestore.collection(`${uid}/ingresosEgresos/items/`).valueChanges().subscribe((resp:any[])=>{
+      //this.store.dispatch(new SetIngresoEgreso(resp))
+    //})
+    return this.firestore.collection(`${userActual.uid}/ingresosEgresos/items/`).valueChanges()
+    
+  
+ }
+
 }
