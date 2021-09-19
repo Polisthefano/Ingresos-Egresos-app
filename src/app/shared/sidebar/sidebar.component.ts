@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   this.authService.logout().then(resp=>{
    
     this.store.dispatch(new UnsetUserAction())
-    this.authService.suscription.unsubscribe(); //corta el socket con firebase que trae los items
+    this.authService.suscription.unsubscribe(); //corta el socket con firebase que trae los itemsc
     this.store.dispatch(new UnsetIngresoEgreso())
     this.router.navigateByUrl('/login')
   })
