@@ -5,18 +5,18 @@ export interface IngresoEgresoState{
   items:IngresoEgreso[]|null
 }
 const estadoInicial: IngresoEgresoState={
-  items:[]
+  items: null
 }
 export function IngresoEgresoReducer(state = estadoInicial, action: fromIngresoEgreso.acciones): IngresoEgresoState {
   switch (action.type) {
     case fromIngresoEgreso.SET_ITEMS:
       return {
-        items: [...action.items]
+        items: [...action.items] //rompe la relacion entre el arreglo y la referencia de esa variable
       }
     case fromIngresoEgreso.UNSET_ITEMS:
       return {
-        items:[]
-      }
+        items: []
+      };
     default:
       return state
   }

@@ -29,7 +29,7 @@ export class IngresoEgresoComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
     this.Subscription=this.store.select('ui').subscribe((resp:any) => {
     this.loading=resp.isLoading
   })
@@ -55,6 +55,6 @@ export class IngresoEgresoComponent implements OnInit,OnDestroy {
     ;
 
   }
-  
+
 
 }

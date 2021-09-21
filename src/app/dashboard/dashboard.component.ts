@@ -11,6 +11,7 @@ import { AuthServiceService } from '../services/auth-service.service';
 import { DashboardService } from '../services/dashboard.service';
 import { IngresoEgresoService } from '../services/ingreso-egreso.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,14 +21,15 @@ export class DashboardComponent implements OnInit,OnDestroy {
   usuario:any=null
 subcription2:Subscription=new Subscription()
 
-  constructor(private authService:AuthServiceService,private store:Store<AppState>) { }
+  constructor(private dashboardService:DashboardService,private authService:AuthServiceService,private store:Store<AppState>) { }
 
   ngOnInit(): void {
+    this.dashboardService.listenerIngresoEgreso()
   }
   ngOnDestroy(): void {
   }
- 
-  
-  
+
+
+
 
 }

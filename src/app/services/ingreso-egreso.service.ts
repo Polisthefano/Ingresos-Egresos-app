@@ -23,12 +23,9 @@ export class IngresoEgresoService {
 
    getAllItems(){
     let userActual:any = this.authService.getUser();
-    //this.firestore.collection(`${uid}/ingresosEgresos/items/`).valueChanges().subscribe((resp:any[])=>{
-      //this.store.dispatch(new SetIngresoEgreso(resp))
-    //})
     return this.firestore.collection(`${userActual.uid}/ingresosEgresos/items/`).valueChanges()
-    
-  
+
+
  }
 
 }

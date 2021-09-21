@@ -2,18 +2,17 @@ export class IngresoEgreso{
   descripcion:string
   monto:number
   tipo:TipoIngreso
-
+id?:string|null
   constructor(
     descripcion: string,
     monto: number,
     tipo: TipoIngreso,
-    // uid?: string|null
+    id?:string|null
 ) {
     this.descripcion = descripcion
     this.monto = monto
     this.tipo = tipo
-    // this.uid = uid
+
   }
-  // uid?:string|null
 }
 export type TipoIngreso='ingreso'|'egreso'

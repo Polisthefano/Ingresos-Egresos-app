@@ -11,6 +11,7 @@ import { DesactivarLoadingAction, ActivarLoadingAction } from '../shared/ui.acci
 import { SetUserAction } from '../auth/auth.actions';
 import { DashboardService } from './dashboard.service';
 import { SetIngresoEgreso, UnsetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
+import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,11 @@ export class AuthServiceService {
       console.log(firebaseUser) //con este metodo me suscribo a todos los datos del usuario logueado
       if (firebaseUser)
       {
-        console.log("aca dos veces")
+
         this.firestore.doc(`${firebaseUser.uid}/usuario`).get().toPromise().then((user:any) => {
           let usuario: User = user.data()
           this.store.dispatch(new SetUserAction(usuario));
-          this.suscription=this.firestore.collection(`${usuario.uid}/ingresosEgresos/items/`).valueChanges().subscribe((items:any[])=>{
-            this.store.dispatch(new SetIngresoEgreso(items))
-          })
+          this.cargarIngresosEgresos(usuario)
           this.usuario=usuario
         })
 
@@ -84,5 +83,18 @@ export class AuthServiceService {
   getUser() {
     return { ...this.usuario } //esto lo hacemos con spread para pasar una copia y no por referencia
     //esto se hace para obtener el usuario actual, podria haberselo buscado en el redux y era lo mismo
+  }
+
+  cargarIngresosEgresos(usuario:any) {
+  //usamos snapshot porque podemos acceder al id que es la cabecera del documento y con value changes no podiamos
+    this.suscription = this.firestore.collection(`${usuario.uid}/ingresosEgresos/items`).snapshotChanges().subscribe((items: any[]) => {
+      const ingresosEgresos:IngresoEgreso[]=[]
+      items.forEach(item => {
+        let inEg: IngresoEgreso = { ...item.payload.doc.data(),id:item.payload.doc.id} //podemos hacerlo tambien como abajo, pero esto es mas simple y mejor
+        // let inEg: IngresoEgreso = new IngresoEgreso(obj.descripcion,obj.monto,obj.tipo, item.payload.doc.id)
+        ingresosEgresos.push(inEg)
+      })
+     this.store.dispatch(new SetIngresoEgreso(ingresosEgresos))
+    })
   }
 }
