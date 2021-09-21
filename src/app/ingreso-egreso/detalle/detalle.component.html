@@ -4,27 +4,27 @@
             <div class="card-body">
                 <h4 class="card-title">Detalle de ingreso egreso</h4>
 
-                <table class="table">
+                <table *ngIf="ingresosEgresos" class="table animated fadeIn">
                     <thead>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Monto</th>
-                            <th>Tipo</th>
-                            <th></th>
+                        <tr class="text-center">
+                            <th class="fs-5">Descripción</th>
+                            <th class="fs-5">Monto</th>
+                            <th class="fs-5">Tipo</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let ingEgr of ingresosEgresos">
+                        <tr class="text-center" *ngFor="let ingEgr of ingresosEgresos">
                             <td>{{ingEgr.descripcion}}</td>
                             <td>{{ingEgr.monto}}</td>
-                            <td>{{ingEgr.tipo}}</td>
                             <td>{{ingEgr.tipo}}</td>
                         </tr>
                     </tbody>
 
                 </table>
-
+                <div class="row text-center mt-4" *ngIf="!ingresosEgresos">
+                    <i class="fas fa-4x fa-cog fa-spin"></i>
+                </div>
 
             </div>
         </div>
