@@ -31,13 +31,17 @@ export class LoginComponent implements OnInit,OnDestroy {
   {
     this.store.dispatch(new ActivarLoadingAction())
     this.authService.login(formulario.email,formulario.pass).then(resp=>{
-      this.dialogService.openDialog('Sesion iniciada correctamente', true,true)
+      this.dialogService.openDialog('Sesion iniciada correctamente', true,true,false)
 
     this.store.dispatch(new DesactivarLoadingAction())
 
-    }).catch(err=>{
-
-      this.dialogService.openDialog('Error al iniciar Sesion', false,false)
+    }).catch(err => {
+      let msg='Ocurrio un error al iniciar Sesion'
+      if (err.code == 'auth/wrong-password')
+      {
+          msg='Usuario o contrasena incorrectos'
+      }
+      this.dialogService.openDialog(msg, false,false,false)
       this.store.dispatch(new DesactivarLoadingAction())
 
     })

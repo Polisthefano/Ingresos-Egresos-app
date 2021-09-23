@@ -44,13 +44,13 @@ export class IngresoEgresoComponent implements OnInit,OnDestroy {
     let objetoToInsert = new IngresoEgreso(this.forma.value['descripcion'], this.forma.value['monto'], this.tipo)
     this.ingresoEgresoService.insertIngresoEgreso(objetoToInsert).then(resp => {
       this.store.dispatch(new DesactivarLoadingAction());
-      this.dialogService.openDialog(`${objetoToInsert.tipo} guardado Correctamente`, true, false)
+      this.dialogService.openDialog(`${objetoToInsert.tipo} guardado Correctamente`, true, false,false)
       this.forma.reset({
       })
     }).catch(err => {
       this.store.dispatch(new DesactivarLoadingAction());
       console.log((err));
-    this.dialogService.openDialog('Error al guardar tu'+this.tipo+"",false,false)
+    this.dialogService.openDialog('Error al guardar tu'+this.tipo+"",false,false,false)
     });
     ;
 

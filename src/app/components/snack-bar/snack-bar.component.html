@@ -1,11 +1,36 @@
 <div class="container rounded">
-    <div class="row">
-        <div [ngClass]="{'text-danger': !data.value, 'text-success': data.value }" class="col-12 text-center">
-            <h4>{{data.msg}}</h4>
+    <ng-container *ngIf="!data.editItem">
+        <div class="row">
+            <div [ngClass]="{'text-danger': !data.success, 'text-success': data.success }" class="col-13 text-center">
+                <h4>{{data.msg}}</h4>
+            </div>
         </div>
-    </div>
-    <div class="row text-center">
-        <i *ngIf="!data.value" class="fa-2x fas fa-times-circle text-danger"></i>
-        <i class="fa-2x fas fa-check-circle text-success" *ngIf="data.value"></i>
-    </div>
+        <div class="row text-center">
+            <i *ngIf="!data.success" class="fa-2x fas fa-times-circle text-danger"></i>
+            <i class="fa-2x fas fa-check-circle text-success" *ngIf="data.success"></i>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="data.editItem">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>{{data.msg}}</h3>
+                <hr>
+            </div>
+        </div>
+        <form #f="ngForm" (ngSubmit)="submit(f)">
+            <label for="exampleFormControlInput1" class="form-label">Descripcion</label>
+            <input name='desc' [ngModel]=data.item.descripcion required type="text" name="desc" class="form-control mb-3" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Monto</label>
+            <input name='monto' [ngModel]=data.item.monto required type="number" name="monto" class="form-control mb-3" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1" class="form-label">Tipo</label>
+            <select name='tipo' [ngModel]=data.item.tipo class="form-select form-select-lg mb-3">
+              <option *ngFor="let tipo of tipoIngreso" value={{tipo}}>{{tipo}}</option>
+            </select>
+            <div class="row mt-4">
+                <button [disabled]=f.invalid type="submit" class="btn btn-outline-success">Guardar...</button>
+            </div>
+        </form>
+    </ng-container>
+
+
 </div>

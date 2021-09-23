@@ -2,22 +2,45 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SnackBarComponent } from '../components/snack-bar/snack-bar.component';
+import { IngresoEgreso } from '../models/ingreso-egreso.model';
+import { IngresoEgresoService } from './ingreso-egreso.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
 
-  constructor(private dialog:MatDialog,private router:Router) { }
+  constructor(private ingresoEgresoService:IngresoEgresoService
+    , private dialog: MatDialog, private router: Router) { }
 
-  openDialog(msg:string,value:boolean,login:boolean){
+   openDialog(msg:string,success:boolean,login:boolean,edit:boolean,item?:IngresoEgreso){
   const dialogRef= this.dialog.open(SnackBarComponent,{
       width: '300px',
-    data:{msg:msg,value:value}
-    });
-    setTimeout(() => {
-      dialogRef.close()
-   }, 1800);
+    data:{msg:msg,success:success,editItem:edit,item:item}
+  });
+    if (!edit)
+    {
+      setTimeout(() => {
+        dialogRef.close()
+     }, 1800);
+    }
+    else {
+
+      dialogRef.afterClosed().subscribe(newItem => {
+      let Success
+      let mesg
+      // this.ingresoEgresoService.editItem(newItem).then(resp => {
+      //  this.openDialog('')
+
+        }).catch(err => {
+
+        });
+        setTimeout(() => {
+          this.dialog.closeAll()
+       }, 1800);
+      })
+    }
+
    if(login)
     {
       dialogRef.afterClosed().subscribe(resp=>{

@@ -35,7 +35,7 @@ async submit(formulario:any){
   const user=new User(formulario.nombre,resp.user!.email!,resp.user!.uid)
   const resp2= await  this.authService.insertUserDatabase(user)
   this.store.dispatch(new DesactivarLoadingAction())
-    this.dialogService.openDialog('Usuario Creado Correctamente',true,true)
+    this.dialogService.openDialog('Usuario Creado Correctamente',true,true,false)
    }
    catch(err:any){
      console.log(err)
@@ -45,7 +45,7 @@ async submit(formulario:any){
        error='Este email ya esta registrado, pruebe con otro'
      }
      this.store.dispatch(new DesactivarLoadingAction())
-    this.dialogService.openDialog(error,false,false)
+    this.dialogService.openDialog(error,false,false,false)
    }
 
 }

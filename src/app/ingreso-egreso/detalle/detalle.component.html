@@ -10,6 +10,7 @@
                             <th class="fs-5">Descripción</th>
                             <th class="fs-5">Monto</th>
                             <th class="fs-5">Tipo</th>
+                            <th class="fs-5">Acciones</th>
                         </tr>
                     </thead>
 
@@ -18,6 +19,8 @@
                             <td>{{ingEgr.descripcion}}</td>
                             <td>{{ingEgr.monto}}</td>
                             <td>{{ingEgr.tipo}}</td>
+                            <td><button (click)="borrarItem(ingEgr.id!)" class="me-2 btn btn-outline-danger">Borrar<i class="fa-1x  fas fa-eraser"></i></button>
+                                <button (click)="editarItem(ingEgr.id!,ingEgr)" class="btn btn-outline-success">Editar<i class="fa-1x  fas fa-highlighter"></i></button></td>
                         </tr>
                     </tbody>
 
