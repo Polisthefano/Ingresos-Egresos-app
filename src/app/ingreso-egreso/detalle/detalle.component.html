@@ -15,10 +15,13 @@
                     </thead>
 
                     <tbody>
-                        <tr class="text-center" *ngFor="let ingEgr of ingresosEgresos">
+                        <tr class="text-center" *ngFor="let ingEgr of ingresosEgresos|orderInEg">
                             <td>{{ingEgr.descripcion}}</td>
-                            <td>{{ingEgr.monto}}</td>
-                            <td>{{ingEgr.tipo}}</td>
+                            <td>{{ingEgr.monto|currency:'ARS':'symbol-narrow'}}</td>
+                            <td [ngClass]="{'text-success': ingEgr.tipo=='ingreso','text-danger':ingEgr.tipo=='egreso'}">{{ingEgr.tipo}}
+                                <i *ngIf="ingEgr.tipo=='ingreso'" class="fas fa-long-arrow-alt-up"></i>
+                                <i *ngIf="ingEgr.tipo=='egreso'" class="fas fa-long-arrow-alt-down"></i>
+                            </td>
                             <td><button (click)="borrarItem(ingEgr.id!)" class="me-2 btn btn-outline-danger">Borrar<i class="fa-1x  fas fa-eraser"></i></button>
                                 <button (click)="editarItem(ingEgr.id!,ingEgr)" class="btn btn-outline-success">Editar<i class="fa-1x  fas fa-highlighter"></i></button></td>
                         </tr>

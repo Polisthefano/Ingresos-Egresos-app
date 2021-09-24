@@ -27,13 +27,14 @@ export class DialogService {
     else {
 
       dialogRef.afterClosed().subscribe(newItem => {
-      let Success
-      let mesg
-      // this.ingresoEgresoService.editItem(newItem).then(resp => {
-      //  this.openDialog('')
+
+        this.ingresoEgresoService.editItem(newItem).then(resp => {
+
+      this.openDialog(`${item!.descripcion} Fue editado correctamente`,true,false,false)
 
         }).catch(err => {
 
+          this.openDialog(`No fue posible editar ${item!.descripcion}`,false,false,false)
         });
         setTimeout(() => {
           this.dialog.closeAll()

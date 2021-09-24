@@ -26,6 +26,7 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
+import { OrderInEgPipe } from './pipes/order-in-eg.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { appReducers } from './app.reducer';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    OrderInEgPipe
   ],
   imports: [
     BrowserModule,
