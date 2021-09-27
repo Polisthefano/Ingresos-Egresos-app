@@ -33,7 +33,9 @@ export class SnackBarComponent implements OnInit {
     }
     return ''
   }
-
+  cancel() {
+    this.dialogRef.close(false)
+  }
     }
 
 

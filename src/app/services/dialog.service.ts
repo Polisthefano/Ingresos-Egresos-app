@@ -27,6 +27,9 @@ export class DialogService {
     else {
 
       dialogRef.afterClosed().subscribe(newItem => {
+        if (!newItem) {
+          return;
+        }
 
         this.ingresoEgresoService.editItem(newItem).then(resp => {
 
@@ -34,12 +37,14 @@ export class DialogService {
 
         }).catch(err => {
 
-          this.openDialog(`No fue posible editar ${item!.descripcion}`,false,false,false)
+          this.openDialog(`No fue posible editar ${item!.descripcion}`, false, false, false)
+
         });
         setTimeout(() => {
           this.dialog.closeAll()
-       }, 1800);
+        }, 1800);
       })
+
     }
 
    if(login)
@@ -47,6 +52,8 @@ export class DialogService {
       dialogRef.afterClosed().subscribe(resp=>{
         this.router.navigateByUrl('/')
       })
-    }
-  }
+   }
+
+  return;
+   }
 }

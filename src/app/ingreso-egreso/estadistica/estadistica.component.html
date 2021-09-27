@@ -51,7 +51,8 @@
                     <div class="card-body">
                         <div class=" row">
                             <div class="col-6">
-                                <span class="fs-3">Balance</span>
+                                <i class="me-2 fa-2x fas fa-balance-scale-right"></i>
+                                <span class=" fs-3">Balance</span>
                             </div>
                             <div class="col-6 text-end">
                                 <span class="fs-3" [ngClass]="{'text-success': ingresos-egresos>0,
@@ -62,6 +63,12 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-4 d-flex justify-content-center">
+            <div class="" style="display: block; height:100%;width:65%">
+                <canvas baseChart width="200" height="200" [datasets]="ChartData" [legend]="pieChartLegend" [labels]="ChartLabels" [chartType]="ChartType" [options]="pieChartOptions" [colors]="pieChartColors"></canvas>
+            </div>
+        </div>
+
     </div>
 </ng-container>
 <div class="row text-center mt-4" *ngIf="!ingresosEgresos">

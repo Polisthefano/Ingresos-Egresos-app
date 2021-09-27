@@ -3,23 +3,42 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/app.reducer';
 import { IngresoEgreso } from '../../models/ingreso-egreso.model';
 import { LockChanges } from '@ngrx/store-devtools/src/actions';
-
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import {  Label } from 'ng2-charts';
 @Component({
   selector: 'app-estadistica',
   templateUrl: './estadistica.component.html',
   styleUrls: ['./estadistica.component.css']
 })
 export class EstadisticaComponent implements OnInit {
+
+
 ingresosEgresos:IngresoEgreso[]|null=null
   cantIngresos:number = 0
   cantEgresos:number=0
   ingresos: number = 0
-  egresos:number=0
+  egresos: number = 0
+
+  ChartType: ChartType = 'pie';
+  ChartData: ChartDataSets[] = [];
+  ChartLabels: Label[] = ['Ingresos', 'Egresos'];
+  pieChartColors = [
+    {
+      backgroundColor: ['#198754', '#dc3545'],
+    },
+  ];
+   pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'left',
+    },
+
+  };
+   pieChartLegend = true;
   constructor(private store:Store<AppState>) { }
 
   ngOnInit(): void {
     this.store.select('Items').subscribe((items: any) => {
-    console.log(items);
 
       this.ingresosEgresos = items.items
       this.calcularIngresosEgresos()
@@ -36,6 +55,12 @@ ingresosEgresos:IngresoEgreso[]|null=null
         this.ingresos=this.ingresos+item.monto
       }
     })
+    let total = this.egresos + this.ingresos
+    let porcentajeIngresos = (this.ingresos * 100) / total
+    let porcentajeEgresos = (this.egresos * 100) / total
+
+    this.ChartData = [{ data: [Math.round(porcentajeIngresos), Math.round(porcentajeEgresos)],   }]
+
 }
 
 }

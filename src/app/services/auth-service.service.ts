@@ -8,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { DesactivarLoadingAction, ActivarLoadingAction } from '../shared/ui.accions';
-import { SetUserAction } from '../auth/auth.actions';
+import { SetUserAction, UnsetUserAction } from '../auth/auth.actions';
 import { DashboardService } from './dashboard.service';
 import { SetIngresoEgreso, UnsetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
@@ -49,7 +49,10 @@ export class AuthServiceService {
   }
 
   logout()
+
   {
+    this.store.dispatch(new UnsetUserAction())
+    this.store.dispatch(new UnsetIngresoEgreso())
     return this.afa.signOut() //este logout cierra la sesion independientemente del metodo para loguearte que hayas usado
   }
 

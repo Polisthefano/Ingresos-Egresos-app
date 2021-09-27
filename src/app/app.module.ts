@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMatModule } from './modules/angular-mat/angular-mat.module';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
-
+import { ChartsModule } from 'ng2-charts';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
@@ -57,6 +57,7 @@ import { OrderInEgPipe } from './pipes/order-in-eg.pipe';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    ChartsModule
   ],
   providers:[SnackBarComponent],
   bootstrap: [AppComponent]
