@@ -33,7 +33,8 @@ export class SidebarComponent implements OnInit,OnDestroy {
   this.authService.logout().then(resp=>{
 
     this.authService.suscription.unsubscribe(); //corta el socket con firebase que trae los items de firebase
-
+    window.location.reload() //esto lo agregue porque al usar canLoad y cerrar sesion, cuando queremos entrar con la flecha de
+    //volver hacia atras, lo permite y no deberia. Al recargar la pagina, borramos todas las subscripciones
     this.router.navigateByUrl('/login')
   })
 
