@@ -5,6 +5,7 @@ import { IngresoEgreso } from '../../models/ingreso-egreso.model';
 import { LockChanges } from '@ngrx/store-devtools/src/actions';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import {  Label } from 'ng2-charts';
+import { AppStateIngre } from '../ingreso-egreso.reducer';
 @Component({
   selector: 'app-estadistica',
   templateUrl: './estadistica.component.html',
@@ -35,7 +36,7 @@ ingresosEgresos:IngresoEgreso[]|null=null
 
   };
    pieChartLegend = true;
-  constructor(private store:Store<AppState>) { }
+  constructor(private store:Store<AppStateIngre>) { }
 
   ngOnInit(): void {
     this.store.select('Items').subscribe((items: any) => {

@@ -7,10 +7,10 @@ import * as fromIngresoEgreso from './ingreso-egreso/ingreso-egreso.reducer';
 export interface AppState{
   ui: fromUI.State;
   Auth: fromAuth.AuthState,
-  Items:fromIngresoEgreso.IngresoEgresoState
+  // Items?:fromIngresoEgreso.IngresoEgresoState
 }
 export const appReducers:ActionReducerMap<AppState,any>={  //permite combinar los reducers el action reducerMap
   ui: fromUI.uiReducer,
   Auth: fromAuth.authReducer,
-  Items:fromIngresoEgreso.IngresoEgresoReducer
+  // Items:fromIngresoEgreso.IngresoEgresoReducer
 }

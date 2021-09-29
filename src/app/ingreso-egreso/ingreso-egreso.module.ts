@@ -9,6 +9,8 @@ import { OrderInEgPipe } from '../pipes/order-in-eg.pipe';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
+import {StoreModule } from '@ngrx/store';
+import { IngresoEgresoReducer } from './ingreso-egreso.reducer';
 
 
 
@@ -26,7 +28,9 @@ import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    StoreModule.forFeature('Items', IngresoEgresoReducer) //forFeatur3 se usa para lazy loading de store, le insertas ese reducer
+    //al app reducer, expandis el store actual
   ]
 })
 export class IngresoEgresoModule { }

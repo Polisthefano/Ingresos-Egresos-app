@@ -12,6 +12,7 @@ import { SetUserAction, UnsetUserAction } from '../auth/auth.actions';
 import { DashboardService } from './dashboard.service';
 import { SetIngresoEgreso, UnsetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
+import { AppStateIngre } from '../ingreso-egreso/ingreso-egreso.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ import { IngresoEgreso } from '../models/ingreso-egreso.model';
 export class AuthServiceService {
   suscription:Subscription=new Subscription()
   private usuario: User|null=null;
-  constructor(private dashboardService:DashboardService,private router:Router,private afa:AngularFireAuth,private store:Store<AppState>,private firestore:AngularFirestore) { }
+  constructor(private dashboardService:DashboardService,private router:Router,private afa:AngularFireAuth,private store:Store<AppStateIngre>,private firestore:AngularFirestore) { }
 
   initAuthListener(){
     this.afa.authState.subscribe(firebaseUser=>{

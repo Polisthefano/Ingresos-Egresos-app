@@ -7,6 +7,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { IngresoEgresoService } from '../../services/ingreso-egreso.service';
 import { DialogService } from '../../services/dialog.service';
 import { Subject, Subscription } from 'rxjs';
+import { AppStateIngre } from '../ingreso-egreso.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -16,10 +17,10 @@ import { Subject, Subscription } from 'rxjs';
 export class DetalleComponent implements OnInit, OnDestroy {
   $destroy:Subject<boolean>=new Subject<boolean>()
   ingresosEgresos:IngresoEgreso[]|null=null
-  constructor(private toastService:DialogService,private store:Store<AppState>,private ingresoegresoService:IngresoEgresoService) { }
+  constructor(private toastService:DialogService,private store:Store<AppStateIngre>,private ingresoegresoService:IngresoEgresoService) { }
 
   ngOnInit(): void {
-    this.store.select("Items").pipe(takeUntil(this.$destroy)).pipe(filter(items => (items.items != null)))
+    this.store.select("Items").pipe(takeUntil(this.$destroy)).pipe(filter(items => (items?.items != null)))
     //esto hace que solo si es distinto de null, es decir que cuando haya datos se subscribe,
     //no es tan necesario el filter porque si no hay datos no pasa nada, esta el spinner
       .subscribe((iE: any) => {
